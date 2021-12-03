@@ -1,0 +1,25 @@
+﻿<Window x:Class="CA2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CA2"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="501.245" Width="783.986">
+    <Grid Margin="0,0,2,-1">
+        <RadioButton x:Name="radioAll" Content="All" HorizontalAlignment="Left" Margin="48,82,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="radioLand" Content="Land" HorizontalAlignment="Left" Margin="48,124,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="radioWater" Content="Water" HorizontalAlignment="Left" Margin="48,165,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="radioAir" Content="Air" HorizontalAlignment="Left" Margin="48,204,0,0" VerticalAlignment="Top"/>
+        <ListBox x:Name="lbxOptions" HorizontalAlignment="Left" Height="227" Margin="147,82,0,0" VerticalAlignment="Top" Width="204" SelectionChanged="LbxOptions_SelectionChanged"/>
+        <ListBox x:Name="lbxSelected" HorizontalAlignment="Left" Height="227" Margin="531,82,0,0" VerticalAlignment="Top" Width="204"/>
+        <Label x:Name="lblDescription" Content="Description" HorizontalAlignment="Left" Margin="147,381,0,0" VerticalAlignment="Top"/>
+        <TextBlock x:Name="txtDescription" HorizontalAlignment="Left" Margin="147,412,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="40" Width="295"/>
+        <Button x:Name="btnAdd" Content="&gt;&gt;" HorizontalAlignment="Left" Margin="404,139,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="btnRemove" Content="&lt;&lt;" HorizontalAlignment="Left" Margin="404,189,0,0" VerticalAlignment="Top" Width="75"/>
+        <TextBlock HorizontalAlignment="Left" Margin="147,10,0,0" TextWrapping="Wrap" Text="Activity Planner" VerticalAlignment="Top" Height="67" Width="332" Foreground="#FF00DED4" FontSize="48"/>
+        <TextBlock HorizontalAlignment="Left" Margin="531,58,0,0" TextWrapping="Wrap" Text="Selected Activites" VerticalAlignment="Top" Height="19" Width="113"/>
+        <Label x:Name="lblTotalCost" Content="Total Cost:: " HorizontalAlignment="Left" Margin="531,27,0,0" VerticalAlignment="Top" Width="113"/>
+
+    </Grid>
+</Window>
