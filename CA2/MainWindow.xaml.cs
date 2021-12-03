@@ -25,35 +25,95 @@ namespace CA2
             InitializeComponent();
             ListPopulation();
         }
-
-        List<Activity> allActivities = new List<Activity>();
-        enum activityTypes
-        {
-            Treking,
-            MountainBiking = 0,
-            Abseiling = 0,
-            Kayaking,
-            Surfing = 1,
-            Sailing = 1,
-            Parachuting,
-            HangGliding = 2,
-            HelicopterTour = 2
+        enum activityType
+        { 
+            Land, 
+            Water, 
+            Air 
         }
+        List<Activity> allActivities = new List<Activity>();
         public void ListPopulation()
         {
-            //Declaration of arrays
-            string[,] options = { { "Treking", "All day walking, up the moutains, then some more walking." }, { "Kayaking", "Half day lakeland kayak with island picnic" }, { "Parachuting", "Half day falling, all day screaming" }, {"Mountain Biking", "Half day cycle from France to Dublin with a great geography lesson at the end" }, { "Surfing", "Quarter day seaside surf with some hot chocolate after"}, { "Hang Gliding", "'This isn't flying, this is falling with style!' for a half day" }, { "Abseiling", "Half a day being spiderman"}, {"Sailing", "Half day on a boat, but a pirate for life"}, {"Helicopter Tour", "Quarter day of flying, or things getting smaller depending on your depth perception...Dougal"}};
-            DateTime[] dates = new DateTime[options.GetLength(0)];
             //Declaration of variables
             Random random = new Random();
             DateTime currentDate = DateTime.Now;
-            for (int i = 0; i < options.GetLength(0); i++ )
+            //Creating the activity objects
+            allActivities.Add(new Activity()
             {
-                dates[i] = currentDate.AddDays(random.Next(1,7));
-                allActivities.Add(new Activity() { Name = options[i,0], ActivityDate = dates[i], Cost = random.Next(3000, 9000) / 100, Description = options[i, 1] });
-            }
+                Name = "Treking",
+                ActivityDate = currentDate.AddDays(random.Next(1, 7)),
+                Cost = random.Next(3000, 9000) / 100,
+                Description = "All day walking, up the moutains, then some more walking.",
+                TypeOfActivity = (Activity.ActivityType)activityType.Land
+            });
+            allActivities.Add(new Activity()
+            {
+                Name = "Kayaking",
+                ActivityDate = currentDate.AddDays(random.Next(1, 7)),
+                Cost = random.Next(3000, 9000) / 100,
+                Description = "Half day lakeland kayak with island picnic",
+                TypeOfActivity = (Activity.ActivityType)activityType.Water
+            });
+            allActivities.Add(new Activity()
+            {
+                Name = "Parachuting",
+                ActivityDate = currentDate.AddDays(random.Next(1, 7)),
+                Cost = random.Next(3000, 9000) / 100,
+                Description = "Half a day falling, all day screaming",
+                TypeOfActivity = (Activity.ActivityType)activityType.Air
+            });
+            allActivities.Add(new Activity()
+            {
+                Name = "Mountain Biking",
+                ActivityDate = currentDate.AddDays(random.Next(1, 7)),
+                Cost = random.Next(3000, 9000) / 100,
+                Description = "Half day cycle from France to Dublin with a great geography lesson at the end",
+                TypeOfActivity = (Activity.ActivityType)activityType.Land
+            });
+            allActivities.Add(new Activity()
+            {
+                Name = "Surfing",
+                ActivityDate = currentDate.AddDays(random.Next(1, 7)),
+                Cost = random.Next(3000, 9000) / 100,
+                Description = "Quarter day seaside surf with some hot chocolate after",
+                TypeOfActivity = (Activity.ActivityType)activityType.Water
+            });
+            allActivities.Add(new Activity()
+            {
+                Name = "Hang Gliding",
+                ActivityDate = currentDate.AddDays(random.Next(1, 7)),
+                Cost = random.Next(3000, 9000) / 100,
+                Description = "'This isn't flying, this is falling with style!'...for a half day",
+                TypeOfActivity = (Activity.ActivityType)activityType.Air
+            });
+            allActivities.Add(new Activity()
+            {
+                Name = "Abseiling",
+                ActivityDate = currentDate.AddDays(random.Next(1, 7)),
+                Cost = random.Next(3000, 9000) / 100,
+                Description = "Half a day being spiderman",
+                TypeOfActivity = (Activity.ActivityType)activityType.Land
+            });
+            allActivities.Add(new Activity()
+            {
+                Name = "Sailing",
+                ActivityDate = currentDate.AddDays(random.Next(1, 7)),
+                Cost = random.Next(3000, 9000) / 100,
+                Description = "Half day on a boat, but a pirate for life",
+                TypeOfActivity = (Activity.ActivityType)activityType.Water
+            });
+            allActivities.Add(new Activity()
+            {
+                Name = "Helicopter Tour",
+                ActivityDate = currentDate.AddDays(random.Next(1, 7)),
+                Cost = random.Next(3000, 9000) / 100,
+                Description = "Quarter day of flying, or as things get smaller, an iconic Father Ted scene",
+                TypeOfActivity = (Activity.ActivityType)activityType.Air
+            });
 
             lbxOptions.ItemsSource = allActivities;
+            lbxOptions.Items.Refresh();
+            //lbxOptions.ItemsSource = allActivities;
 
         }
 

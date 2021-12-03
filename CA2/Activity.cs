@@ -25,6 +25,10 @@ namespace CA2
         public decimal Cost { get; set; }
         public string Description { get { return _description; } set { _description = value; } }
         public ActivityType TypeOfActivity { get; set; }
+        public override string ToString()
+        {
+            return base.ToString();
+        }
         /*public int DateCompareTo(object obj)
         {
             if (this.ActivityDate > obj.AcivityDate)
