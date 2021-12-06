@@ -23,7 +23,6 @@ namespace CA2
         public MainWindow()
         {
             InitializeComponent();
-            ListPopulation();
         }
         enum activityType
         { 
@@ -31,14 +30,16 @@ namespace CA2
             Water, 
             Air 
         }
-        List<Activity> allActivities = new List<Activity>();
-        public void ListPopulation()
+        List<Activity> optionActivities = new List<Activity>();//Activity objects are accessible in all functions
+        List<Activity> selectedActivities = new List<Activity>();//Selected options list
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             //Declaration of variables
             Random random = new Random();
             DateTime currentDate = DateTime.Now;
             //Creating the activity objects
-            allActivities.Add(new Activity()
+            optionActivities.Add(new Activity()
             {
                 Name = "Treking",
                 ActivityDate = currentDate.AddDays(random.Next(1, 7)),
@@ -46,7 +47,7 @@ namespace CA2
                 Description = "All day walking, up the moutains, then some more walking.",
                 TypeOfActivity = (Activity.ActivityType)activityType.Land
             });
-            allActivities.Add(new Activity()
+            optionActivities.Add(new Activity()
             {
                 Name = "Kayaking",
                 ActivityDate = currentDate.AddDays(random.Next(1, 7)),
@@ -54,7 +55,7 @@ namespace CA2
                 Description = "Half day lakeland kayak with island picnic",
                 TypeOfActivity = (Activity.ActivityType)activityType.Water
             });
-            allActivities.Add(new Activity()
+            optionActivities.Add(new Activity()
             {
                 Name = "Parachuting",
                 ActivityDate = currentDate.AddDays(random.Next(1, 7)),
@@ -62,7 +63,7 @@ namespace CA2
                 Description = "Half a day falling, all day screaming",
                 TypeOfActivity = (Activity.ActivityType)activityType.Air
             });
-            allActivities.Add(new Activity()
+            optionActivities.Add(new Activity()
             {
                 Name = "Mountain Biking",
                 ActivityDate = currentDate.AddDays(random.Next(1, 7)),
@@ -70,7 +71,7 @@ namespace CA2
                 Description = "Half day cycle from France to Dublin with a great geography lesson at the end",
                 TypeOfActivity = (Activity.ActivityType)activityType.Land
             });
-            allActivities.Add(new Activity()
+            optionActivities.Add(new Activity()
             {
                 Name = "Surfing",
                 ActivityDate = currentDate.AddDays(random.Next(1, 7)),
@@ -78,7 +79,7 @@ namespace CA2
                 Description = "Quarter day seaside surf with some hot chocolate after",
                 TypeOfActivity = (Activity.ActivityType)activityType.Water
             });
-            allActivities.Add(new Activity()
+            optionActivities.Add(new Activity()
             {
                 Name = "Hang Gliding",
                 ActivityDate = currentDate.AddDays(random.Next(1, 7)),
@@ -86,7 +87,7 @@ namespace CA2
                 Description = "'This isn't flying, this is falling with style!'...for a half day",
                 TypeOfActivity = (Activity.ActivityType)activityType.Air
             });
-            allActivities.Add(new Activity()
+            optionActivities.Add(new Activity()
             {
                 Name = "Abseiling",
                 ActivityDate = currentDate.AddDays(random.Next(1, 7)),
@@ -94,7 +95,7 @@ namespace CA2
                 Description = "Half a day being spiderman",
                 TypeOfActivity = (Activity.ActivityType)activityType.Land
             });
-            allActivities.Add(new Activity()
+            optionActivities.Add(new Activity()
             {
                 Name = "Sailing",
                 ActivityDate = currentDate.AddDays(random.Next(1, 7)),
@@ -102,25 +103,113 @@ namespace CA2
                 Description = "Half day on a boat, but a pirate for life",
                 TypeOfActivity = (Activity.ActivityType)activityType.Water
             });
-            allActivities.Add(new Activity()
+            optionActivities.Add(new Activity()
             {
                 Name = "Helicopter Tour",
                 ActivityDate = currentDate.AddDays(random.Next(1, 7)),
                 Cost = random.Next(3000, 9000) / 100,
-                Description = "Quarter day of flying, or as things get smaller, an iconic Father Ted scene",
+                Description = "Quarter day of flying; or, as things get smaller, an iconic Father Ted scene",
                 TypeOfActivity = (Activity.ActivityType)activityType.Air
             });
-
-            lbxOptions.ItemsSource = allActivities;
-            lbxOptions.Items.Refresh();
-            //lbxOptions.ItemsSource = allActivities;
-
+            //Declaration of listbox content sources
+            lbxOptions.ItemsSource = optionActivities;
+            lbxSelected.ItemsSource = selectedActivities;
         }
 
         private void LbxOptions_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            lbxOptions.SelectedItem = allActivities;
+            
+            //txtDescription.Text = optionActivities[listBoxIndex()].Description;//Updates description
+        }
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        {
+            //remove from one list
+            //allActivities.Remove and .Add
+            //add to other list
+            selectedActivities.Add(optionActivities[listBoxIndex()]);
+            optionActivities.Remove(optionActivities[listBoxIndex()]);
+            lbxSelected.Items.Refresh();
+            lbxOptions.Items.Refresh();
+        }
+        private void btnRemove_Click(object sender, RoutedEventArgs e)
+        {
+            optionActivities.Add(selectedActivities[BoxIndex()]);
+            selectedActivities.Remove(selectedActivities[BoxIndex()]);
+            lbxOptions.Items.Refresh();
+            lbxSelected.Items.Refresh();
+        }
+        private int listBoxIndex()
+        {
+            int counter = -1;
+            do
+            {
+                counter++;
+            } while (optionActivities[counter].ToString() != lbxOptions.SelectedItem.ToString());
+            return counter;
+        }
+        private int BoxIndex()
+        {
+            int counter = -1;
+            do
+            {
+                counter++;
+            } while (selectedActivities[counter].ToString() != lbxSelected.SelectedItem.ToString());
+            return counter;
+        }
+        private void radioLand_Checked(object sender, RoutedEventArgs e)
+        {
+            lbxOptions.ItemsSource = null;
+            lbxOptions.Items.Clear();
+            int counter = 0;
+            do
+            {
+                if (optionActivities[counter].TypeOfActivity == (Activity.ActivityType)activityType.Land)
+                {
+                    lbxOptions.Items.Add(optionActivities[counter]);
+                }
+                counter++;
+            }
+            while (optionActivities.Count > counter);
 
+        }
+
+        private void radioWater_Checked(object sender, RoutedEventArgs e)
+        {
+            lbxOptions.ItemsSource = null;
+            lbxOptions.Items.Clear();
+            int counter = 0;
+            do
+            {
+                if (optionActivities[counter].TypeOfActivity == (Activity.ActivityType)activityType.Water)
+                {
+                    lbxOptions.Items.Add(optionActivities[counter]);
+                }
+                counter++;
+            }
+            while (optionActivities.Count > counter);
+        }
+
+        private void radioAir_Checked(object sender, RoutedEventArgs e)
+        {
+            lbxOptions.ItemsSource = null;
+            lbxOptions.Items.Clear();
+            int counter = 0;
+            do
+            {
+                if (optionActivities[counter].TypeOfActivity == (Activity.ActivityType)activityType.Air)
+                {
+                    lbxOptions.Items.Add(optionActivities[counter]);
+                }
+                counter++;
+            }
+            while (optionActivities.Count > counter);
+        }
+
+        private void radioAll_Checked(object sender, RoutedEventArgs e)
+        {
+            lbxOptions.ItemsSource = null;
+            lbxOptions.Items.Clear();
+            lbxOptions.ItemsSource = optionActivities;
         }
     }
 }

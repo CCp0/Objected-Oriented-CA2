@@ -27,7 +27,7 @@ namespace CA2
         public ActivityType TypeOfActivity { get; set; }
         public override string ToString()
         {
-            return base.ToString();
+            return $"{Name} - {ActivityDate.ToShortDateString()}";
         }
         /*public int DateCompareTo(object obj)
         {
