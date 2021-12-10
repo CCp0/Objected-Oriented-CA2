@@ -26,9 +26,9 @@ namespace CA2
         }
         enum activityType
         {
-            Land,
+            Air,
             Water,
-            Air
+            Land
         }
         List<Activity> optionActivities = new List<Activity>();//Activity objects are accessible in all functions
         List<Activity> selectedActivities = new List<Activity>();//Selected options list
@@ -172,19 +172,26 @@ namespace CA2
         }
         private void btnRemove_Click(object sender, RoutedEventArgs e)
         {
-            Activity selected = lbxSelected.SelectedItem as Activity;//Show the selected activity object
-            if (selected != null)
+            try
             {
-                cost -= selected.Cost;//Deducts from total cost
-                lblTotalCost.Content = cost;//Displays new cost
-                optionActivities.Add(selected);//Adds the selected option to the options list
-                selectedActivities.Remove(selected);//Removes the selected option from the selected options list
-                FilterRefresh();//Filtered list checking
-                lbxSelected.ItemsSource = null;//Clears the selected itemsource
-                lbxSelected.ItemsSource = selectedActivities;//Sets a new itemsource
+                Activity selected = lbxSelected.SelectedItem as Activity;//Show the selected activity object
+                if (selected != null)
+                {
+                    cost -= selected.Cost;//Deducts from total cost
+                    lblTotalCost.Content = cost;//Displays new cost
+                    optionActivities.Add(selected);//Adds the selected option to the options list
+                    selectedActivities.Remove(selected);//Removes the selected option from the selected options list
+                    FilterRefresh();//Filtered list checking
+                    lbxSelected.ItemsSource = null;//Clears the selected itemsource
+                    lbxSelected.ItemsSource = selectedActivities;//Sets a new itemsource
+                }
+            }
+            catch(Exception error)
+            {
+                MessageBox.Show($"The following error has occurred - {error}");
             }
         }
-        
+
         private void FilterRefresh()
         {   //Determines which list, filtered or unfiltered, we use
             if (radioAir.IsChecked.Value == true)
