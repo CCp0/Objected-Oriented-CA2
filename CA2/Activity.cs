@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CA2
 {
-    class Activity// : IComparable
+    class Activity : IComparable
     {
         public Activity()
         {
@@ -23,26 +23,27 @@ namespace CA2
         public string Name { get; set; }
         public DateTime ActivityDate { get; set; }
         public decimal Cost { get; set; }
-        public string Description { get { return _description; } set { _description = value; } }
+        public string Description { get { return _description + $". Cost - €{Cost}"; } set { _description = value; } }
         public ActivityType TypeOfActivity { get; set; }
         public override string ToString()
         {
             return $"{Name} - {ActivityDate.ToShortDateString()}";
         }
-        /*public int DateCompareTo(object obj)
+        public int CompareTo(object obj)
         {
-            if (this.ActivityDate > obj.AcivityDate)
+            if(obj==null)
             {
                 return 1;
             }
-            else if(this.ActivityDate < obj.AcivityDate)
+            Activity otherActivityDate = obj as Activity;
+            if(otherActivityDate != null)
             {
-                return -1;
+                return this.ActivityDate.CompareTo(otherActivityDate.ActivityDate);
             }
             else
             {
-                return 0;
+                throw new ArgumentException("Is not a sortable date");
             }
-        }*/
+        }
     }
 }
